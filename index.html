@@ -309,6 +309,7 @@
   .hero-slide.active{opacity:1;transform:scale(1);}
   .hero-slide.s-ampoule{background-image:url(images/fond-ampoule.jpg);background-position:center 40%;}
   .hero-slide.s-monde{background-image:url(images/fond-monde.jpg);}
+  .hero-slide.s-globe{background-image:url(images/fond-globe.jpg);background-position:center 45%;}
   .hero-slides::after{content:"";position:absolute;inset:0;background:
       radial-gradient(ellipse 70% 55% at 85% 8%,rgba(242,197,61,.22),transparent 60%),
       linear-gradient(165deg,rgba(62,127,201,.78) 0%,rgba(46,95,160,.70) 45%,rgba(9,60,70,.88) 100%);}
@@ -329,11 +330,22 @@
   .quote-block.photo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(120deg,rgba(9,60,70,.82),rgba(46,95,160,.55) 55%,rgba(9,60,70,.80));}
   .quote-block.photo p{color:#fff;font-size:clamp(1.6rem,3.4vw,2.6rem);text-shadow:0 4px 24px rgba(0,0,0,.45);}
   .quote-block.photo span{color:var(--gold-soft);}
+  .quote-block.photo.globe{margin-top:0;padding:140px 6%;}
+  .quote-block.photo.globe .qb-fond{background-image:url(images/fond-globe.jpg);background-position:center 55%;}
+  .quote-block.photo.globe::after{background:linear-gradient(180deg,rgba(9,60,70,.10) 0%,rgba(9,60,70,.30) 45%,rgba(9,60,70,.62) 100%);}
+  .quote-block.photo.globe p{text-shadow:0 2px 6px rgba(0,0,0,.55),0 6px 30px rgba(0,0,0,.6);}
+  .quote-block.photo.globe span{text-shadow:0 1px 6px rgba(0,0,0,.7);}
+  @media (min-width:900px){
+    .quote-block.photo.globe{padding:190px 7%;text-align:right;}
+    .quote-block.photo.globe .qb-fond{background-position:center 62%;}
+    .quote-block.photo.globe p{margin:0 0 0 auto;max-width:520px;}
+    .quote-block.photo.globe::after{background:linear-gradient(90deg,rgba(9,60,70,0) 0%,rgba(9,60,70,.08) 45%,rgba(9,60,70,.62) 75%,rgba(9,60,70,.78) 100%),linear-gradient(180deg,rgba(9,60,70,0) 50%,rgba(9,60,70,.35) 100%);}
+  }
 
   /* Appel à l'inscription avec photo et élève */
   .callout.callout-photo{position:relative;overflow:hidden;isolation:isolate;padding:46px 40px;min-height:300px;align-items:center;border-radius:4px;}
-  .callout.callout-photo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(9,60,70,.92) 0%,rgba(14,110,128,.78) 45%,rgba(46,95,160,.45) 100%);}
-  .callout.callout-photo .co-fond{position:absolute;inset:0;z-index:-2;background:url(images/fond-monde.jpg) center/cover;}
+  .callout.callout-photo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(9,60,70,.93) 0%,rgba(14,110,128,.74) 42%,rgba(14,110,128,.12) 72%,rgba(9,60,70,.25) 100%);}
+  .callout.callout-photo .co-fond{position:absolute;inset:0;z-index:-2;background:url(images/fond-globe.jpg) 70% 45%/cover;}
   .callout.callout-photo h3{font-size:clamp(1.4rem,2.6vw,2rem);}
   .callout.callout-photo .co-texte{max-width:560px;}
   .callout.callout-photo .co-eleve{width:auto;position:absolute;right:40px;bottom:-6px;height:118%;max-height:380px;filter:drop-shadow(0 16px 24px rgba(0,0,0,.4));pointer-events:none;}
@@ -373,11 +385,13 @@
 <section class="hero" id="top">
   <div class="hero-slides" aria-hidden="true">
     <div class="hero-slide s-ampoule active"></div>
+    <div class="hero-slide s-globe"></div>
     <div class="hero-slide s-monde"></div>
   </div>
   <div class="hero-dots" role="tablist" aria-label="Photos">
     <button type="button" class="hero-dot active" data-slide="0" aria-label="Photo 1"></button>
     <button type="button" class="hero-dot" data-slide="1" aria-label="Photo 2"></button>
+    <button type="button" class="hero-dot" data-slide="2" aria-label="Photo 3"></button>
   </div>
   <div class="wrap">
     <div class="hero-frame">
@@ -510,6 +524,12 @@
 
 </div><!-- /page-ecole -->
 <div class="page" id="page-parcours">
+<section class="quote-block photo globe">
+  <div class="qb-fond" aria-hidden="true"></div>
+  <p>« Ouvrir chaque enfant au monde. »</p>
+  <span>De la crèche au CM2 · Français · Wolof · Anglais · Informatique</span>
+</section>
+
 <section class="section-pad" id="parcours" style="background:var(--surface);">
   <div class="wrap">
     <div class="section-head">
