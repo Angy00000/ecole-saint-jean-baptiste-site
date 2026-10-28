@@ -302,6 +302,44 @@
   }
   nav.main a.active{color:var(--navy);}
   nav.main a.active::after{transform:scaleX(1);background:var(--navy);}
+
+  /* ═══ Photos plein écran (dans l'esprit d'Angy Tech) ═══════════════════ */
+  .hero > .hero-slides{position:absolute;inset:0;z-index:0;}
+  .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s ease;}
+  .hero-slide.active{opacity:1;transform:scale(1);}
+  .hero-slide.s-ampoule{background-image:url(images/fond-ampoule.jpg);background-position:center 40%;}
+  .hero-slide.s-monde{background-image:url(images/fond-monde.jpg);}
+  .hero-slides::after{content:"";position:absolute;inset:0;background:
+      radial-gradient(ellipse 70% 55% at 85% 8%,rgba(242,197,61,.22),transparent 60%),
+      linear-gradient(165deg,rgba(62,127,201,.78) 0%,rgba(46,95,160,.70) 45%,rgba(9,60,70,.88) 100%);}
+  .hero > .hero-dots{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px;z-index:3;}
+  .hero-dot{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
+  .hero-dot.active{background:var(--gold);width:24px;border-radius:5px;}
+  .hero-eleve{display:block;height:250px;width:auto;margin:22px auto 0;filter:drop-shadow(0 18px 26px rgba(0,0,0,.35));animation:eleveFlotte 6s ease-in-out infinite;}
+  @keyframes eleveFlotte{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media (min-width:1200px){
+    .hero .wrap{position:relative;}
+    .hero-eleve{position:absolute;right:46px;bottom:1px;height:min(78%,540px);margin:0;z-index:2;}
+  }
+  @media (prefers-reduced-motion:reduce){.hero-slide,.hero-eleve{transition:none;animation:none;transform:none;}}
+
+  /* Bandeau photo de la devise */
+  .quote-block.photo{position:relative;overflow:hidden;isolation:isolate;border:0;padding:120px 6%;margin:20px 0;}
+  .quote-block.photo .qb-fond{position:absolute;left:0;right:0;top:-18%;bottom:-18%;z-index:-2;background:url(images/fond-ampoule.jpg) center/cover;transform:translateY(var(--par,0px));will-change:transform;}
+  .quote-block.photo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(120deg,rgba(9,60,70,.82),rgba(46,95,160,.55) 55%,rgba(9,60,70,.80));}
+  .quote-block.photo p{color:#fff;font-size:clamp(1.6rem,3.4vw,2.6rem);text-shadow:0 4px 24px rgba(0,0,0,.45);}
+  .quote-block.photo span{color:var(--gold-soft);}
+
+  /* Appel à l'inscription avec photo et élève */
+  .callout.callout-photo{position:relative;overflow:hidden;isolation:isolate;padding:46px 40px;min-height:300px;align-items:center;border-radius:4px;}
+  .callout.callout-photo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(9,60,70,.92) 0%,rgba(14,110,128,.78) 45%,rgba(46,95,160,.45) 100%);}
+  .callout.callout-photo .co-fond{position:absolute;inset:0;z-index:-2;background:url(images/fond-monde.jpg) center/cover;}
+  .callout.callout-photo h3{font-size:clamp(1.4rem,2.6vw,2rem);}
+  .callout.callout-photo .co-texte{max-width:560px;}
+  .callout.callout-photo .co-eleve{width:auto;position:absolute;right:40px;bottom:-6px;height:118%;max-height:380px;filter:drop-shadow(0 16px 24px rgba(0,0,0,.4));pointer-events:none;}
+  .callout.callout-photo .btn{margin-top:18px;}
+  @media (min-width:900px){.callout.callout-photo{padding-right:300px;}}
+  @media (max-width:899px){.callout.callout-photo{padding:34px 24px 0;}.callout.callout-photo .co-texte{order:1;}.callout.callout-photo > .btn{order:2;margin-top:4px;}.callout.callout-photo .co-eleve{order:3;position:static;height:230px;margin:14px auto 0;display:block;}}
 </style>
 </head>
 <body>
@@ -333,6 +371,14 @@
 
 <div class="page active" id="page-accueil">
 <section class="hero" id="top">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide s-ampoule active"></div>
+    <div class="hero-slide s-monde"></div>
+  </div>
+  <div class="hero-dots" role="tablist" aria-label="Photos">
+    <button type="button" class="hero-dot active" data-slide="0" aria-label="Photo 1"></button>
+    <button type="button" class="hero-dot" data-slide="1" aria-label="Photo 2"></button>
+  </div>
   <div class="wrap">
     <div class="hero-frame">
       <div class="hero-top">
@@ -352,6 +398,7 @@
           <a class="btn btn-ghost on-dark" href="javascript:void(0)" onclick="goAnchor('ecole');return false;">Découvrir l'école</a>
         </div>
         <p class="hero-credit">Direction : Mme Thérèse Angélique Soumaré · Fondée en octobre 2006</p>
+        <img class="hero-eleve" src="images/eleve.png" alt="Un élève souriant, cartable au dos et livres à la main" width="376" height="838">
       </div>
       <div class="hero-bottom">
         <span>14.7833°N / 17.3500°W</span>
@@ -428,7 +475,8 @@
   </div>
 </section>
 
-<section class="quote-block">
+<section class="quote-block photo">
+  <div class="qb-fond" aria-hidden="true"></div>
   <p>« Éduquer, c'est rendre libre. »</p>
   <span>École Saint Jean Baptiste de Malika</span>
 </section>
@@ -654,10 +702,12 @@
       <h2>Rejoindre l'école Saint Jean Baptiste.</h2>
     </div>
 
-    <div class="callout" style="margin-bottom:34px;">
-      <div>
+    <div class="callout callout-photo" style="margin-bottom:34px;">
+      <div class="co-fond" aria-hidden="true"></div>
+      <img class="co-eleve" src="images/eleve.png" alt="" loading="lazy" width="376" height="838">
+      <div class="co-texte">
         <span class="callout-badge">ÉTAPE 1</span>
-        <h3>Prêt à inscrire votre enfant ?</h3>
+        <h3>Prêt à inscrire votre enfant&nbsp;?</h3>
         <p>Remplissez le formulaire de demande d'inscription — il ne prend que 2 minutes. Vous validerez ensuite l'envoi vous-même sur WhatsApp.</p>
       </div>
       <button type="button" class="btn btn-primary" onclick="ouvrirInscription()">Remplir le formulaire d'inscription</button>
@@ -848,6 +898,28 @@
     window.scrollTo({top:0, behavior:'smooth'});
   });
 
+
+  // Diaporama de l'accueil (comme Angy Tech) + effet de profondeur sur le bandeau photo
+  (function(){
+    var slides = document.querySelectorAll('.hero-slide'), dots = document.querySelectorAll('.hero-dot');
+    if (slides.length > 1) {
+      var cur = 0, timer;
+      var aller = function(i){ slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); cur = i; slides[cur].classList.add('active'); dots[cur].classList.add('active'); };
+      var auto = function(){ timer = setInterval(function(){ aller((cur + 1) % slides.length); }, 6000); };
+      dots.forEach(function(d){ d.addEventListener('click', function(){ clearInterval(timer); aller(+d.dataset.slide); auto(); }); });
+      auto();
+    }
+    var bandes = document.querySelectorAll('.quote-block.photo');
+    var majPar = function(){
+      bandes.forEach(function(b){
+        var r = b.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        var k = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+        b.querySelector('.qb-fond').style.setProperty('--par', (k * -60).toFixed(1) + 'px');
+      });
+    };
+    addEventListener('scroll', majPar, { passive: true }); addEventListener('resize', majPar); majPar();
+  })();
   function goPage(id){
     var target = (id === 'top') ? 'accueil' : id;
     document.querySelectorAll('.page').forEach(function(p){
